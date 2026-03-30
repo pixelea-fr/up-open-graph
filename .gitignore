@@ -1,0 +1,161 @@
+# WordPress Gitignore pour plugin UP Open Graph
+# Version 1.0
+
+# === Fichiers et dossiers WordPress ===
+# Ne pas versionner les fichiers de configuration WordPress
+wp-config.php
+wp-config-local.php
+wp-config.php.bak
+
+# === Logs et fichiers temporaires ===
+*.log
+*.log.*
+*.tmp
+*.temp
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# === Éditeurs de code et IDE ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings
+*.sublime-project
+*.sublime-workspace
+
+# === Node.js et NPM ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+
+# === Build et assets ===
+/build/
+/dist/
+*.min.js
+*.min.css
+*.map
+*.hot-update.*
+
+# === Environnement et configuration ===
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# === Tests ===
+/coverage/
+.nyc_output
+.phpunit.result.cache
+.phpunit.cache
+
+# === Documentation générée ===
+/docs/build/
+/docs/api/
+
+# === Cache et performance ===
+/cache/
+*.cache
+.opcache/
+
+# === Sauvegardes et backups ===
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+
+# === Fichiers système ===
+*.pid
+*.seed
+*.pid.lock
+
+# === Fichiers de configuration locaux ===
+config.local.php
+local-config.php
+.env.local
+
+# === Uploads et médias (si dans le plugin) ===
+/uploads/
+/media/files/
+
+# === Fichiers spécifiques au développement ===
+.gitkeep
+.gitattributes
+.gitmodules
+
+# === Fichiers de dépendances Composer ===
+/vendor/
+composer.lock
+
+# === Fichiers de dépendances NPM ===
+package-lock.json
+yarn.lock
+
+# === Scripts de déploiement ===
+deploy/
+scripts/deploy*
+
+# === Documentation locale ===
+docs/local/
+*.md.bak
+
+# === Fichiers de test locaux ===
+tests/local/
+*.test.local.php
+
+# === Configuration de serveur local ===
+.vagrant/
+docker-compose.override.yml
+docker-compose.local.yml
+
+# === Fichiers de monitoring ===
+.monitoring/
+*.monitor
+
+# === Fichiers d'analyse statique ===
+.php_cs.cache
+.php-cs-fixer.cache
+
+# === Fichiers de sécurité ===
+*.key
+*.pem
+*.crt
+*.p12
+
+# === Personnalisé pour UP Open Graph ===
+# Ne pas versionner les images de test
+assets/test-images/
+assets/temp/
+
+# Ne pas versionner les fichiers de configuration locale
+config/local-*
+assets/config/local-*
+
+# Ne pas versionner les exports de données
+exports/
+*.export.json
+*.export.csv
+
+# Ne pas versionner les rapports de debug
+reports/debug/
+reports/logs/
+
+# === Exceptions (fichiers à versionner malgré les règles) #
+!README.md
+!LICENSE
+!CHANGELOG.md
+!.gitignore
+!composer.json
+!package.json
