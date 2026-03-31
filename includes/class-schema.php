@@ -3,7 +3,7 @@
  * UP Open Graph - Schema.org JSON-LD
  *
  * @package UP_Open_Graph
- * @version 1.0.0
+ * @version 1.0.3
  * @author  GEHIN Nicolas
  * @license GPL-2.0+
  */
@@ -19,6 +19,37 @@ defined('ABSPATH') || exit;
  * @since 1.0.0
  */
 class UP_OG_Schema {
+
+    /**
+     * Mapping des sous-types Schema.org vers leur type racine.
+     *
+     * @since 1.0.1
+     * @var array<string, string>
+     */
+    protected static $subtype_roots = [
+        'ArchitecturalService'     => 'ProfessionalService',
+        'HomeAndConstructionBusiness' => 'LocalBusiness',
+        'GeneralContractor'        => 'HomeAndConstructionBusiness',
+        'HousePainter'             => 'HomeAndConstructionBusiness',
+        'PlumbingService'          => 'HomeAndConstructionBusiness',
+        'Electrician'              => 'HomeAndConstructionBusiness',
+        'LegalService'             => 'ProfessionalService',
+        'AccountingService'        => 'ProfessionalService',
+        'ConsultingService'        => 'ProfessionalService',
+        'MedicalBusiness'          => 'LocalBusiness',
+        'Dentist'                  => 'MedicalBusiness',
+        'HealthAndBeautyBusiness'  => 'LocalBusiness',
+        'BeautySalon'              => 'HealthAndBeautyBusiness',
+        'FitnessCenter'            => 'HealthAndBeautyBusiness',
+        'Store'                    => 'LocalBusiness',
+        'Restaurant'               => 'LocalBusiness',
+        'Bakery'                   => 'LocalBusiness',
+        'CafeOrCoffeeShop'         => 'LocalBusiness',
+        'Hotel'                    => 'LodgingBusiness',
+        'EducationalOrganization'  => 'Organization',
+        'ArtGallery'               => 'LocalBusiness',
+        'EntertainmentBusiness'    => 'LocalBusiness',
+    ];
 
     /**
      * Initialise les hooks de sortie Schema.org
@@ -44,7 +75,7 @@ class UP_OG_Schema {
         if (empty($schema)) return;
 
         echo '<script type="application/ld+json">' . "\n";
-        echo wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        echo json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         echo "\n" . '</script>' . "\n";
     }
 
@@ -56,12 +87,17 @@ class UP_OG_Schema {
      * @return array Schéma formaté pour JSON-LD
      */
     public static function build($type) {
+        $normalized = self::normalize_type($type);
         $base = [
             '@context' => 'https://schema.org',
-            '@type'    => $type,
+            '@type'    => $normalized['root'],
             'name'     => UP_OG_Settings::get('schema_name', get_bloginfo('name')),
             'url'      => UP_OG_Settings::get('schema_url', get_site_url()),
         ];
+
+        if (!empty($normalized['subtype'])) {
+            $base['additionalType'] = 'https://schema.org/' . $normalized['subtype'];
+        }
 
         $logo = UP_OG_Settings::get('schema_logo');
         if ($logo) $base['logo'] = $logo;
@@ -121,5 +157,27 @@ class UP_OG_Schema {
         }
 
         return $base;
+    }
+
+    /**
+     * Normalise un type Schema.org en type racine + sous-type.
+     *
+     * @since 1.0.2
+     * @param string $type Type sélectionné.
+     * @return array{root:string,subtype:string}
+     */
+    protected static function normalize_type($type) {
+        $type = trim((string) $type);
+        if (isset(self::$subtype_roots[$type])) {
+            return [
+                'root'    => self::$subtype_roots[$type],
+                'subtype' => $type,
+            ];
+        }
+
+        return [
+            'root'    => $type ?: 'Organization',
+            'subtype' => '',
+        ];
     }
 }

@@ -7,6 +7,30 @@
 
   const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
   const daysShort = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  const schemaSubtypeRoots = {
+    ArchitecturalService: 'ProfessionalService',
+    HomeAndConstructionBusiness: 'LocalBusiness',
+    GeneralContractor: 'HomeAndConstructionBusiness',
+    HousePainter: 'HomeAndConstructionBusiness',
+    PlumbingService: 'HomeAndConstructionBusiness',
+    Electrician: 'HomeAndConstructionBusiness',
+    LegalService: 'ProfessionalService',
+    AccountingService: 'ProfessionalService',
+    ConsultingService: 'ProfessionalService',
+    MedicalBusiness: 'LocalBusiness',
+    Dentist: 'MedicalBusiness',
+    HealthAndBeautyBusiness: 'LocalBusiness',
+    BeautySalon: 'HealthAndBeautyBusiness',
+    FitnessCenter: 'HealthAndBeautyBusiness',
+    Store: 'LocalBusiness',
+    Restaurant: 'LocalBusiness',
+    Bakery: 'LocalBusiness',
+    CafeOrCoffeeShop: 'LocalBusiness',
+    Hotel: 'LodgingBusiness',
+    EducationalOrganization: 'Organization',
+    ArtGallery: 'LocalBusiness',
+    EntertainmentBusiness: 'LocalBusiness'
+  };
 
   // ─── INIT ────────────────────────────────────────────
   $(document).ready(function () {
@@ -803,6 +827,7 @@
   // ─── OVERVIEW CODE ────────────────────────────────────
   function renderOverviewCode() {
     const lines = [];
+    const schemaType = normalizeSchemaType(S.schema_type || 'Organization');
     if (S.og_enabled == 1) {
       lines.push('<span style="color:#6b6b80"><!-- Open Graph --></span>');
       lines.push(`<span style="color:#7dd3fc">&lt;meta</span> <span style="color:#86efac">property</span>=<span style="color:#fca5a5">"og:title"</span> content=<span style="color:#fca5a5">"${esc(S.og_title)}"</span>&gt;`);
@@ -819,10 +844,19 @@
     if (S.schema_enabled == 1) {
       lines.push('');
       lines.push('<span style="color:#6b6b80"><!-- Schema JSON-LD --></span>');
-      lines.push(`<span style="color:#7dd3fc">&lt;script</span> <span style="color:#86efac">type</span>=<span style="color:#fca5a5">"application/ld+json"</span><span style="color:#7dd3fc">&gt;</span>{ "@type": "${esc(S.schema_type)}", ... }<span style="color:#7dd3fc">&lt;/script&gt;</span>`);
+      const subtypeLine = schemaType.subtype ? `, <span style="color:#fca5a5">"additionalType"</span>: <span style="color:#fca5a5">"https://schema.org/${esc(schemaType.subtype)}"</span>` : '';
+      lines.push(`<span style="color:#7dd3fc">&lt;script</span> <span style="color:#86efac">type</span>=<span style="color:#fca5a5">"application/ld+json"</span><span style="color:#7dd3fc">&gt;</span>{ <span style="color:#fca5a5">"@type"</span>: <span style="color:#fca5a5">"${esc(schemaType.rootType)}"</span>${subtypeLine}, ... }<span style="color:#7dd3fc">&lt;/script&gt;</span>`);
     }
     if (!lines.length) lines.push('<span style="color:var(--og-muted)">Aucun module activé.</span>');
     $('#overview-code').html(lines.join('\n'));
+  }
+
+  function normalizeSchemaType(type) {
+    const rootType = schemaSubtypeRoots[type] || type;
+    return {
+      rootType,
+      subtype: schemaSubtypeRoots[type] ? type : ''
+    };
   }
 
   // ─── SAVE ─────────────────────────────────────────────

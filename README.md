@@ -63,6 +63,7 @@ UP Open Graph est un plugin WordPress moderne et complet qui vous permet de conf
 
 ### Schema.org
 - **Type de schema** : Choisissez le type qui correspond à votre activité
+- **Sous-types** : Les sous-types spécialisés sont exportés avec un type racine + `additionalType`
 - **Informations** : Complétez les détails de votre entreprise
 - **Horaires** : Ajoutez vos plages horaires d'ouverture
 
@@ -101,6 +102,10 @@ Le plugin supporte l'import direct depuis un JSON Schema.org pour faciliter la c
 - `logo`, `image` → Images
 - `address.*` → Adresse complète
 - `geo.*` → Coordonnées GPS
+
+**Comportement des sous-types :**
+- Si vous choisissez un sous-type comme `ArchitecturalService`, le schéma généré utilise le type racine correspondant (`ProfessionalService`)
+- Le sous-type est conservé dans `additionalType` pour garder l'information spécialisée
 
 ## 🎯 Cas d'utilisation
 
@@ -226,7 +231,7 @@ npm run build
 
 ## 📋 Changelog
 
-### Version 1.0.2 (2024-03-31)
+### Version 1.0.3 (2024-03-31)
 - 🏗️ **Amélioration des types Schema.org**
   - Ajout de 25+ sous-types spécialisés
   - Organisation par catégories avec optgroups
@@ -235,6 +240,7 @@ npm run build
   - Santé & Bien-être (Dentist, BeautySalon, FitnessCenter, etc.)
   - Commerce & Restauration (Bakery, CafeOrCoffeeShop, Hotel, etc.)
   - Éducation & Loisirs (EducationalOrganization, ArtGallery, etc.)
+  - Normalisation des sous-types en type racine + `additionalType`
 
 ### Version 1.0.1 (2024-03-31)
 - 📥 **Nouveau** : Import JSON Schema.org pour remplissage automatique des champs
