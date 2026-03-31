@@ -3,7 +3,7 @@
  * Plugin Name: UP Open Graph
  * Plugin URI:  https://pixelea.fr/up-open-graph
  * Description: Gestion avancée des balises Open Graph, Twitter Cards et données structurées Schema.org
- * Version:     1.0.1
+ * Version:     1.0.2
  * Author:      GEHIN Nicolas
  * Author URI:  https://pixelea.fr
  * Text Domain: up-open-graph
@@ -14,7 +14,7 @@
  * Requires WP: 5.0
  *
  * @package UP_Open_Graph
- * @version 1.0.1
+ * @version 1.0.2
  * @author  GEHIN Nicolas
  * @license GPL-2.0+
  */
@@ -23,7 +23,7 @@
 defined('ABSPATH') || exit;
 
 // Constantes du plugin
-define('UP_OG_VERSION', '1.0.1');
+define('UP_OG_VERSION', '1.0.2');
 define('UP_OG_PATH', plugin_dir_path(__FILE__));
 define('UP_OG_URL', plugin_dir_url(__FILE__));
 

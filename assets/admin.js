@@ -238,14 +238,50 @@
             <div class="up-og-field span-2">
               <label class="up-og-label">@type</label>
               <select class="up-og-select up-og-live" data-key="schema_type" id="schema-type-select">
-                <option value="Organization" ${S.schema_type==='Organization'?'selected':''}>Organization</option>
-                <option value="LocalBusiness" ${S.schema_type==='LocalBusiness'?'selected':''}>LocalBusiness</option>
-                <option value="Restaurant" ${S.schema_type==='Restaurant'?'selected':''}>Restaurant</option>
-                <option value="Store" ${S.schema_type==='Store'?'selected':''}>Store</option>
-                <option value="MedicalBusiness" ${S.schema_type==='MedicalBusiness'?'selected':''}>MedicalBusiness</option>
-                <option value="RealEstateAgent" ${S.schema_type==='RealEstateAgent'?'selected':''}>RealEstateAgent</option>
-                <option value="ProfessionalService" ${S.schema_type==='ProfessionalService'?'selected':''}>ProfessionalService</option>
-                <option value="Person" ${S.schema_type==='Person'?'selected':''}>Person</option>
+       <optgroup label="Général">
+    <option value="Organization" ${S.schema_type==='Organization'?'selected':''}>Organization (Entreprise/Asso)</option>
+    <option value="LocalBusiness" ${S.schema_type==='LocalBusiness'?'selected':''}>LocalBusiness (Commerce local)</option>
+    <option value="Person" ${S.schema_type==='Person'?'selected':''}>Person (Indépendant/Blogueur)</option>
+  </optgroup>
+
+  <optgroup label="Architecture & Bâtiment">
+    <option value="ArchitecturalService" ${S.schema_type==='ArchitecturalService'?'selected':''}>ArchitecturalService (Cabinet d'Architecte)</option>
+    <option value="HomeAndConstructionBusiness" ${S.schema_type==='HomeAndConstructionBusiness'?'selected':''}>HomeAndConstructionBusiness (BTP)</option>
+    <option value="GeneralContractor" ${S.schema_type==='GeneralContractor'?'selected':''}>GeneralContractor (Maître d'œuvre)</option>
+    <option value="HousePainter" ${S.schema_type==='HousePainter'?'selected':''}>HousePainter (Peintre)</option>
+    <option value="PlumbingService" ${S.schema_type==='PlumbingService'?'selected':''}>PlumbingService (Plombier)</option>
+    <option value="Electrician" ${S.schema_type==='Electrician'?'selected':''}>Electrician (Électricien)</option>
+  </optgroup>
+
+  <optgroup label="Services Professionnels">
+    <option value="ProfessionalService" ${S.schema_type==='ProfessionalService'?'selected':''}>ProfessionalService (Générique)</option>
+    <option value="LegalService" ${S.schema_type==='LegalService'?'selected':''}>LegalService (Avocat/Notaire)</option>
+    <option value="AccountingService" ${S.schema_type==='AccountingService'?'selected':''}>AccountingService (Comptable)</option>
+    <option value="RealEstateAgent" ${S.schema_type==='RealEstateAgent'?'selected':''}>RealEstateAgent (Agent Immobilier)</option>
+    <option value="ConsultingService" ${S.schema_type==='ConsultingService'?'selected':''}>ConsultingService (Conseil/Audit)</option>
+  </optgroup>
+
+  <optgroup label="Santé & Bien-être">
+    <option value="MedicalBusiness" ${S.schema_type==='MedicalBusiness'?'selected':''}>MedicalBusiness (Cabinet médical)</option>
+    <option value="Dentist" ${S.schema_type==='Dentist'?'selected':''}>Dentist (Dentiste)</option>
+    <option value="HealthAndBeautyBusiness" ${S.schema_type==='HealthAndBeautyBusiness'?'selected':''}>HealthAndBeautyBusiness (Institut/Spa)</option>
+    <option value="BeautySalon" ${S.schema_type==='BeautySalon'?'selected':''}>BeautySalon (Salon de coiffure)</option>
+    <option value="FitnessCenter" ${S.schema_type==='FitnessCenter'?'selected':''}>FitnessCenter (Salle de sport)</option>
+  </optgroup>
+
+  <optgroup label="Commerce & Restauration">
+    <option value="Store" ${S.schema_type==='Store'?'selected':''}>Store (Boutique/Magasin)</option>
+    <option value="Restaurant" ${S.schema_type==='Restaurant'?'selected':''}>Restaurant</option>
+    <option value="Bakery" ${S.schema_type==='Bakery'?'selected':''}>Bakery (Boulangerie)</option>
+    <option value="CafeOrCoffeeShop" ${S.schema_type==='CafeOrCoffeeShop'?'selected':''}>CafeOrCoffeeShop</option>
+    <option value="Hotel" ${S.schema_type==='Hotel'?'selected':''}>Hotel (Hébergement)</option>
+  </optgroup>
+
+  <optgroup label="Éducation & Loisirs">
+    <option value="EducationalOrganization" ${S.schema_type==='EducationalOrganization'?'selected':''}>EducationalOrganization (École/Formation)</option>
+    <option value="ArtGallery" ${S.schema_type==='ArtGallery'?'selected':''}>ArtGallery (Galerie d'Art)</option>
+    <option value="EntertainmentBusiness" ${S.schema_type==='EntertainmentBusiness'?'selected':''}>EntertainmentBusiness (Loisirs)</option>
+  </optgroup>
               </select>
             </div>
           </div>

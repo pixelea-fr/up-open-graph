@@ -226,6 +226,16 @@ npm run build
 
 ## 📋 Changelog
 
+### Version 1.0.2 (2024-03-31)
+- 🏗️ **Amélioration des types Schema.org**
+  - Ajout de 25+ sous-types spécialisés
+  - Organisation par catégories avec optgroups
+  - Architecture & Bâtiment (ArchitecturalService, GeneralContractor, etc.)
+  - Services Professionnels (LegalService, AccountingService, etc.)
+  - Santé & Bien-être (Dentist, BeautySalon, FitnessCenter, etc.)
+  - Commerce & Restauration (Bakery, CafeOrCoffeeShop, Hotel, etc.)
+  - Éducation & Loisirs (EducationalOrganization, ArtGallery, etc.)
+
 ### Version 1.0.1 (2024-03-31)
 - 📥 **Nouveau** : Import JSON Schema.org pour remplissage automatique des champs
   - Support des types LocalBusiness, Organization, Restaurant, Store, etc.
