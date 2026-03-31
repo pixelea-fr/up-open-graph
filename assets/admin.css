@@ -383,6 +383,21 @@
 }
 .up-og-btn-danger:hover { background: rgba(255,107,138,0.1); }
 
+.up-og-btn-secondary {
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--og-border);
+  border-radius: var(--og-radius-sm);
+  color: var(--og-muted);
+  font-family: var(--og-font);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--og-transition);
+  text-align: center;
+}
+.up-og-btn-secondary:hover { border-color: var(--og-muted); color: var(--og-text); }
+
 /* ─── TOGGLE SWITCH ─────────────────────────────── */
 .up-og-toggle-wrap {
   display: flex;

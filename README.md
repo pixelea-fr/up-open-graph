@@ -66,6 +66,42 @@ UP Open Graph est un plugin WordPress moderne et complet qui vous permet de conf
 - **Informations** : Complétez les détails de votre entreprise
 - **Horaires** : Ajoutez vos plages horaires d'ouverture
 
+### Import JSON Schema.org
+Le plugin supporte l'import direct depuis un JSON Schema.org pour faciliter la configuration :
+
+1. Allez dans l'onglet **Schema.org**
+2. Collez votre JSON dans le champ "Importer depuis JSON"
+3. Les champs sont automatiquement remplis
+
+**Exemple de JSON supporté :**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mon Entreprise",
+  "url": "https://monsite.com",
+  "logo": "https://monsite.com/logo.png",
+  "telephone": "+33 1 23 45 67 89",
+  "address": {
+    "streetAddress": "123 rue Example",
+    "addressLocality": "Paris",
+    "postalCode": "75001",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "latitude": 48.8566,
+    "longitude": 2.3522
+  }
+}
+```
+
+**Champs mappés automatiquement :**
+- `@type` → Type de schema
+- `name`, `url`, `telephone`, `email` → Identité
+- `logo`, `image` → Images
+- `address.*` → Adresse complète
+- `geo.*` → Coordonnées GPS
+
 ## 🎯 Cas d'utilisation
 
 ### **Blog personnel**
@@ -202,6 +238,7 @@ npm run build
 - 🏗️ Schema.org JSON-LD
 - 🎨 Interface admin moderne
 - 🔧 Configuration flexible
+- 📥 **Nouveau** : Import JSON Schema.org pour remplissage automatique des champs
 
 ## 📝 License
 

@@ -222,6 +222,18 @@
           <p>Données structurées pour les moteurs de recherche et agents IA</p>
         </div>
         <div class="up-og-card">
+          <div class="up-og-card-title">Importer depuis JSON</div>
+          <div class="up-og-field">
+            <label class="up-og-label">Coller votre JSON Schema.org</label>
+            <textarea class="up-og-textarea" id="up-og-json-import" placeholder='{"@context": "https://schema.org", "@type": "LocalBusiness", "name": "..."}' style="min-height: 120px; font-family: monospace; font-size: 12px;"></textarea>
+          </div>
+          <div class="up-og-actions" style="margin-top: 12px;">
+            <button class="up-og-btn-outline" id="up-og-import-btn">📥 Importer les données</button>
+            <button class="up-og-btn-outline up-og-btn-secondary" id="up-og-clear-import-btn" style="margin-left: 8px;">✕ Vider</button>
+          </div>
+          <p style="color:var(--og-muted);font-size:12px;margin-top:8px;">Supporte les types: LocalBusiness, Organization, Restaurant, Store, etc.</p>
+        </div>
+        <div class="up-og-card">
           <div class="up-og-card-title">Type de schema</div>
           <div class="up-og-grid">
             <div class="up-og-field span-2">
@@ -533,12 +545,132 @@
     $(document).on('change', '#schema-type-select', function () {
       refreshSchema();
     });
+
+    // JSON Import
+    $(document).on('click', '#up-og-import-btn', function () {
+      importFromJSON();
+    });
+
+    $(document).on('click', '#up-og-clear-import-btn', function () {
+      $('#up-og-json-import').val('');
+    });
+
+    // Auto-import on paste
+    $(document).on('paste', '#up-og-json-import', function (e) {
+      setTimeout(() => {
+        importFromJSON();
+      }, 100);
+    });
   }
 
   function rerenderHours() {
     const hours = Array.isArray(S.schema_hours) ? S.schema_hours : [];
     $('#up-og-hours-wrap').html(renderHoursTable(hours));
     refreshSchema();
+  }
+
+  // ─── JSON IMPORT ─────────────────────────────────────
+  function importFromJSON() {
+    const jsonText = $('#up-og-json-import').val().trim();
+    if (!jsonText) {
+      showToast('✕ Collez d\'abord un JSON valide', 'error');
+      return;
+    }
+
+    let data;
+    try {
+      data = JSON.parse(jsonText);
+    } catch (e) {
+      showToast('✕ JSON invalide : ' + e.message, 'error');
+      return;
+    }
+
+    // Mapping des champs Schema.org vers les champs du plugin
+    const mapping = {
+      // Type
+      '@type': 'schema_type',
+      
+      // Identité
+      'name': 'schema_name',
+      'url': 'schema_url',
+      'telephone': 'schema_telephone',
+      'email': 'schema_email',
+      
+      // Logo et image
+      'logo': 'schema_logo',
+      'image': 'schema_image',
+    };
+
+    // Mapping simple
+    Object.keys(mapping).forEach(schemaKey => {
+      if (data[schemaKey] !== undefined && data[schemaKey] !== null) {
+        const pluginKey = mapping[schemaKey];
+        S[pluginKey] = String(data[schemaKey]);
+        $(`[data-key="${pluginKey}"]`).val(S[pluginKey]).trigger('change');
+      }
+    });
+
+    // Adresse (nested object)
+    if (data.address && typeof data.address === 'object') {
+      if (data.address.streetAddress) {
+        S.schema_street = String(data.address.streetAddress);
+        $(`[data-key="schema_street"]`).val(S.schema_street).trigger('change');
+      }
+      if (data.address.addressLocality) {
+        S.schema_city = String(data.address.addressLocality);
+        $(`[data-key="schema_city"]`).val(S.schema_city).trigger('change');
+      }
+      if (data.address.postalCode) {
+        S.schema_zip = String(data.address.postalCode);
+        $(`[data-key="schema_zip"]`).val(S.schema_zip).trigger('change');
+      }
+      if (data.address.addressCountry) {
+        S.schema_country = String(data.address.addressCountry);
+        $(`[data-key="schema_country"]`).val(S.schema_country).trigger('change');
+      }
+    }
+
+    // Coordonnées géo (nested object)
+    if (data.geo && typeof data.geo === 'object') {
+      if (data.geo.latitude !== undefined) {
+        S.schema_lat = String(data.geo.latitude);
+        $(`[data-key="schema_lat"]`).val(S.schema_lat).trigger('change');
+      }
+      if (data.geo.longitude !== undefined) {
+        S.schema_lng = String(data.geo.longitude);
+        $(`[data-key="schema_lng"]`).val(S.schema_lng).trigger('change');
+      }
+    }
+
+    // Mise à jour de l'image preview
+    if (S.schema_logo) {
+      $(`#img-preview-schema_logo`).html(`<img src="${esc(S.schema_logo)}" alt="">`);
+      const logoField = $(`[data-image-field="schema_logo"]`);
+      if (!logoField.find('.up-og-btn-danger').length) {
+        logoField.find('.up-og-image-actions').append(`
+          <button class="up-og-btn-danger up-og-image-clear" data-target="schema_logo">✕ Supprimer</button>
+          <small style="color:var(--og-muted);font-size:11px;word-break:break-all">${S.schema_logo}</small>
+        `);
+      }
+    }
+
+    if (S.schema_image) {
+      $(`#img-preview-schema_image`).html(`<img src="${esc(S.schema_image)}" alt="">`);
+      const imageField = $(`[data-image-field="schema_image"]`);
+      if (!imageField.find('.up-og-btn-danger').length) {
+        imageField.find('.up-og-image-actions').append(`
+          <button class="up-og-btn-danger up-og-image-clear" data-target="schema_image">✕ Supprimer</button>
+          <small style="color:var(--og-muted);font-size:11px;word-break:break-all">${S.schema_image}</small>
+        `);
+      }
+    }
+
+    // Refresh previews
+    refreshSchema();
+    refreshPreviews();
+    updateOverviewStats();
+
+    showToast('✓ Données importées avec succès', 'success');
   }
 
   // ─── PANEL SWITCH ─────────────────────────────────────
