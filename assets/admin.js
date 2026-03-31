@@ -43,7 +43,6 @@
         <div class="up-og-logo">
           <div class="up-og-logo-icon">🔗</div>
           <h1>UP Open Graph</h1>
-          <span class="up-og-version">v1.0.0</span>
         </div>
         <div class="up-og-topbar-actions">
           <button class="up-og-save-btn" id="up-og-save">

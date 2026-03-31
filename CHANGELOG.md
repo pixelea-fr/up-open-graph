@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2024-03-31
+
+### Added
+- 📥 **Import JSON Schema.org**
+  - Import direct depuis un JSON Schema.org
+  - Mapping automatique des champs (type, nom, URL, téléphone, email, adresse, coordonnées GPS)
+  - Support des types LocalBusiness, Organization, Restaurant, Store, etc.
+  - Interface utilisateur avec zone de collage et bouton d'import
+  - Auto-import au collage (paste)
+
 ## [1.0.0] - 2024-03-30
 
 ### Added

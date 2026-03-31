@@ -190,11 +190,6 @@ add_action('up_og_after_output', function() {
 - Testez avec le [Card Validator](https://cards-dev.twitter.com/validator)
 - Vérifiez que votre domaine est approuvé par Twitter
 
-### Support technique
-
-- **Documentation** : [Guide complet](https://pixelea.fr/docs/up-open-graph)
-- **Support** : [Forum d'aide](https://wordpress.org/support/plugin/up-open-graph)
-- **Issues** : [GitHub Issues](https://github.com/nicolas-gehin/up-open-graph/issues)
 
 ## 🤝 Contribution
 
@@ -217,7 +212,7 @@ Nous apprécions toute contribution ! Voici comment participer :
 
 ```bash
 # Clone du repository
-git clone https://github.com/nicolas-gehin/up-open-graph.git
+git clone https://github.com/pixelea-fr/up-open-graph.git
 
 # Installation des dépendances de développement
 npm install
@@ -231,14 +226,19 @@ npm run build
 
 ## 📋 Changelog
 
-### Version 1.0.0
+### Version 1.0.1 (2024-03-31)
+- 📥 **Nouveau** : Import JSON Schema.org pour remplissage automatique des champs
+  - Support des types LocalBusiness, Organization, Restaurant, Store, etc.
+  - Mapping automatique complet (nom, URL, téléphone, adresse, coordonnées GPS, images)
+  - Interface utilisateur avec zone de collage et auto-import
+
+### Version 1.0.0 (2024-03-30)
 - ✨ Version initiale
 - 🌐 Support Open Graph complet
 - 🐦 Integration Twitter Cards
 - 🏗️ Schema.org JSON-LD
 - 🎨 Interface admin moderne
 - 🔧 Configuration flexible
-- 📥 **Nouveau** : Import JSON Schema.org pour remplissage automatique des champs
 
 ## 📝 License
 
@@ -250,12 +250,6 @@ Ce plugin est sous licence **GPL-2.0+**. Voir le fichier [LICENSE](LICENSE) pour
 - **Design** : Équipe UI/UX
 - **Contributions** : Tous les contributeurs de la communauté
 
-## 🔗 Liens utiles
-
-- [Site officiel](https://pixelea.fr/up-open-graph)
-- [Documentation complète](https://pixelea.fr/docs/up-open-graph)
-- [Démo en ligne](https://pixelea.fr/demo/up-open-graph)
-- [WordPress.org](https://wordpress.org/plugins/up-open-graph)
 
 ---
 
